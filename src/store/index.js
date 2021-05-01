@@ -52,34 +52,69 @@ export default new Vuex.Store({
       commit('setSettingsAlert', { type: 'success', message: 'Data updated' })
     },
     cleanWeatherData ({ commit }, data) {
-      let cleanData = data.list.map((d) => {
-        return {
-          time: new Date(d.dt * 1000),
-          temp: d.main.temp,
-          tempMax: d.main.temp_max,
-          tempMin: d.main.temp_min,
-          main: d.weather[0].main,
-          icon: d.weather[0].icon
-        }
-      })
+      let cleanData = removeExtraniousData(data)
+      let dataByDay = organizeDataByDay(cleanData)
+      let formatedData = formatData(dataByDay)
 
-      let dataByDay = { 
-        day1: []
-      }
-
-      dataByDay.day1.push(cleanData[0])
-      let dayCounter = 1;
-      
-      for (let i = 1; i < cleanData.length; i++) {
-        if (!isSameDay(cleanData[i].time, cleanData[i - 1].time)) {
-          dayCounter = dayCounter + 1
-          let newDay = `day${dayCounter}`
-          dataByDay[newDay] = []
-        }
-        dataByDay[`day${dayCounter}`].push(cleanData[i])
-      }
-      console.log('dataByDay ', dataByDay)
-      commit('setWeather', cleanData)
+      console.log('formatedData ', formatedData)
+      commit('setWeather', dataByDay)
     }
   }
 })
+
+function removeExtraniousData (data) {
+  return data.list.map((item) => {
+    return {
+      time: new Date(item.dt * 1000),
+      temp: item.main.temp,
+      tempMax: item.main.temp_max,
+      tempMin: item.main.temp_min,
+      main: item.weather[0].main,
+      icon: item.weather[0].icon
+    }
+  })
+}
+
+function organizeDataByDay (cleanData) {
+  let dataByDay = { 
+    day1: []
+  }
+  dataByDay.day1.push(cleanData[0])
+  let dayCounter = 1;
+  
+  for (let i = 1; i < cleanData.length; i++) {
+    if (!isSameDay(cleanData[i].time, cleanData[i - 1].time)) {
+      dayCounter = dayCounter + 1
+      let newDay = `day${dayCounter}`
+      dataByDay[newDay] = []
+    }
+    dataByDay[`day${dayCounter}`].push(cleanData[i])
+  }
+  
+  return dataByDay
+}
+
+function formatData (data) {
+  // console.log('data 1 ', data)
+  for (const iteratedDay in data) {
+    let day = data[iteratedDay]
+    day['high'] = day[0].tempMax
+    day['low'] = day[0].tempMin
+    // day['icon'] = day[0].tempMin
+
+    // let iconFrequencies = { }
+
+    for (let i = 0; i < day.length; i ++) {
+      if (day[i].tempMax > day.high) {
+        day.high = day[i].tempMax
+      }
+      if (day[i].tempMin < day.low) {
+        day.low = day[i].tempMin
+      }
+      delete day[i].tempMax
+      delete day[i].tempMin
+    }
+  }
+
+  return data
+}
