@@ -16,7 +16,6 @@
 </template>
 
 <script>
-// import { setUserPreferences, getUserPreferences } from '../../userPreferences.js'
 import { mapState } from 'vuex'
 
 export default {
@@ -29,10 +28,6 @@ export default {
     }
   },
   methods: {
-    // updateUserPreferences: function () {
-    //   this.alertBanner = false;
-    //   this.alertBanner = true;
-    // }
     updateUserData: function () {
       let data = {
         apiKey: this.apiKey,
