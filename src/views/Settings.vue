@@ -28,7 +28,7 @@ export default {
   components: { },
   data: function () {
     return {
-      apiKey: '98743838191d6cbb182daae48d94fcbc',
+      apiKey: '',
       query: '',
       lat: '39.6867251',
       lng: '-86.2898475',

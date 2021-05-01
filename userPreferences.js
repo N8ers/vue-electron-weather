@@ -19,8 +19,3 @@
 //     alert('ALERT FAILED TO SYNC: ', error)
 //   }
 // }
-
-// module.exports = {
-//   setUserPreferences,
-//   getUserPreferences
-// }

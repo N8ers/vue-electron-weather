@@ -17,6 +17,7 @@
     "@mdi/font": "5.9.55",
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
+    "electron-store": "^8.0.0",
     "roboto-fontface": "*",
     "vue": "^2.6.11",
     "vue-electron": "^1.0.6",

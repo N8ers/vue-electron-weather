@@ -1,10 +1,28 @@
 <template>
   <v-container>
     <div>Hi</div>
+    <button @click="getMessages">get message</button>
+    <form @submit.prevent="saveMessages">
+      <label>Message:</label>
+      <input v-model="message" type="text" />
+      <button type="submit">submit</button>
+    </form>
+
+    <hr>
+    <div>
+      <label>GET:</label>
+      <button @click="get">GET</button>
+      <label>SET:</label>
+      <button @click="set">SET</button>
+    </div>
   </v-container>
 </template>
 
 <script>
+// import DataStore from '../db.js'
+// import { setUserPreferences, getUserPreferences } from '../background.js'
+import { get, set } from '../db.js';
+
 export default {
   name: 'HelloWorld',
 
@@ -14,10 +32,32 @@ export default {
       query: 'indianapolis',
       lat: '39.6867251',
       lng: '-86.2898475',
-      alertBanner: null
+      alertBanner: null,
+      message: ''
     }
   },
-  created() {
+  methods: {
+    saveMessages: function () {
+      console.log('saving: ', this.message)
+    },
+    getMessages: function () {
+      console.log('get messages')
+    },
+    get: function () {
+
+      // let data = getUserPreferences()
+      // let data = DataStore.getTodos()
+      // console.log('data ', data)
+
+      const huh = get()
+      console.log('huh ', huh)
+    },
+    set: function () {
+      set()
+      // setUserPreferences()
+    }
+  },
+  mounted() {
     this.$http
       .get(`/weather?q=${this.query}&units=metric&&appid=${this.apiKey}`)
       .then(response => {
