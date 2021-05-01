@@ -21,17 +21,15 @@
 </template>
 
 <script>
-import { setUserPreferences, getUserPreferences } from '../../userPreferences.js'
-
-// const corsPrefix = 'https://cors-anywhere.herokuapp.com/';
-// const baseUrl = `http://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lng}&exclude=hourly&appid=${apiKey}&units=${units}`;
+// import { setUserPreferences, getUserPreferences } from '../../userPreferences.js'
 
 export default {
   name: 'Settings',
   components: { },
   data: function () {
     return {
-      apiKey: '',
+      apiKey: '98743838191d6cbb182daae48d94fcbc',
+      query: '',
       lat: '39.6867251',
       lng: '-86.2898475',
       alertBanner: null
@@ -41,22 +39,28 @@ export default {
     updateUserPreferences: function () {
       this.alertBanner = false;
       this.alertBanner = true;
-      setUserPreferences()
     }
   },
   created() {
-    console.log('CREATED ')
-    let preferences = getUserPreferences()
-    console.log('preferences ', preferences)
-    const units = 'imperial';
-    let url = `http://api.openweathermap.org/data/2.5/onecall?lat=${this.lat}&lon=${this.lng}&exclude=hourly&appid=${this.apiKey}&units=${units}`;
-    // let headers = new Headers();
-    // headers.append('Access-Control-Allow-Origin', 'http://localhost:8080/');
-    // headers.append('Access-Control-Allow-Credentials', 'true');
-
-    fetch(url)
-    .then((res) => console.log('res ', res))
-    .catch((err) => console.log('err ', err))
+    // this.$http
+    //   .get(`/weather?q=${this.query}&units=metric&&appid=${this.apiKey}`)
+    //   .then(response => {
+    //     this.city = response.data.name;
+    //     this.country = response.data.sys.country;
+    //     this.weatherDescription = response.data.weather[0].description;
+    //     this.temp = response.data.main.temp;
+    //     this.tempMin = response.data.main.temp_min;
+    //     this.tempMax = response.data.main.temp_max;
+    //     this.humidity = response.data.main.humidity;
+    //     this.icon = `http://openweathermap.org/img/w/${
+    //       response.data.weather[0].icon
+    //     }.png`;
+    //     this.error = false;
+    //   })
+    //   .catch(() => {
+    //     this.error = true;
+    //     this.city = '';
+    //   });
   }
 }
 </script>

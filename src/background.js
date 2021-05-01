@@ -1,37 +1,8 @@
 'use strict'
 
-import { app, protocol, BrowserWindow, remote } from 'electron'
+import { app, protocol, BrowserWindow } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
-
-// import fs from 'fs';
-// import path from 'path';
-
-
-// const filePath = path.join(__dirname, 'userPreferences.json')
-// console.log('filePath1 ', filePath)
-
-// fs.readFile('filePath', 'utf-8', (err, data) => {
-
-//   if (err) {
-//     console.log('error ', err)
-//     return
-//   }
-//   console.log('data: ', data)
-// })
-
-// async function getUserPreferences () {
-//   try {
-//     fs.readFile('../userPreferences.json')
-//     .then((res) => console.log('res ', res))
-//   } catch (error) {
-//     console.log('FAILED TO SYNC: ', error)
-//     // alert('ALERT FAILED TO SYNC: ', error)
-//   }
-// }
-
-// getUserPreferences()
-
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
 // Scheme must be registered before the app is ready
@@ -48,11 +19,10 @@ async function createWindow() {
       
       // Use pluginOptions.nodeIntegration, leave this alone
       // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
-      nodeIntegration: true,
-      webSecurity: false
+      nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION
     }
   })
-  
+
   if (process.env.WEBPACK_DEV_SERVER_URL) {
     // Load the url of the dev server if in development mode
     await win.loadURL(process.env.WEBPACK_DEV_SERVER_URL)
@@ -83,10 +53,6 @@ app.on('activate', () => {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', async () => {
-
-  app.allowRendererProcessReuse = true
-
-
   if (isDevelopment && !process.env.IS_TEST) {
     // Install Vue Devtools
     try {
@@ -95,18 +61,6 @@ app.on('ready', async () => {
       console.error('Vue Devtools failed to install:', e.toString())
     }
   }
-
-  const filter = {
-    urls: ['http://api.openweathermap.org/*']
-  };
-  const session = remote.session
-  console.log('SESSION \n', session)
-  session.defaultSession.webRequest.onBeforeSendHeaders(filter, (details, callback) => {
-      details.requestHeaders['Origin'] = null;
-      details.headers['Origin'] = null;
-      callback({ requestHeaders: details.requestHeaders })
-  });
-
   createWindow()
 })
 
