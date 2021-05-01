@@ -2,26 +2,22 @@
   <div> 
     <h2>Settings</h2>
 
-    <div v-if="alertBanner">Save Successful/Nothing To Save/Save Failed</div>
+    <div v-if="settingsAlert && settingsAlert.type && settingsAlert.message">
+      <v-alert text :type="settingsAlert.type">{{ settingsAlert.message }}</v-alert>
+    </div>
 
-    <form @submit.prevent="updateUserPreferences">
-      <label for="apiKey">Dark Sky API key:</label>
+    <v-form @submit.prevent="updateUserData">
+      <v-text-field v-model="apiKey" label="API key" required></v-text-field>
+      <v-text-field v-model="city" label="City" required></v-text-field>
+      <v-btn color="success" class="mr-4" type="submit">Update</v-btn>
+    </v-form>
 
-      <input v-model="apiKey" type="text" name="apiKey" />
-
-      <label for="lat">Latitude:</label>
-      <input v-model="lat" type="text" name="lat" />
-
-      <label for="lng">Longitude:</label>
-      <input v-model="lng" type="text" name="lng" />
-
-      <button type="submit">Update</button>
-    </form>
   </div>
 </template>
 
 <script>
 // import { setUserPreferences, getUserPreferences } from '../../userPreferences.js'
+import { mapState } from 'vuex'
 
 export default {
   name: 'Settings',
@@ -29,17 +25,32 @@ export default {
   data: function () {
     return {
       apiKey: '',
-      query: '',
-      lat: '39.6867251',
-      lng: '-86.2898475',
-      alertBanner: null
+      city: ''
     }
   },
   methods: {
-    updateUserPreferences: function () {
-      this.alertBanner = false;
-      this.alertBanner = true;
+    // updateUserPreferences: function () {
+    //   this.alertBanner = false;
+    //   this.alertBanner = true;
+    // }
+    updateUserData: function () {
+      let data = {
+        apiKey: this.apiKey,
+        city: this.city
+      }
+      this.$store.dispatch('setData', data)
     }
+  },
+  computed: {
+    ...mapState({
+      stateApiKey: state => state.apiKey,
+      stateCity: state => state.city,
+      settingsAlert: state => state.settingsAlert
+    })
+  },
+  mounted () {
+    this.apiKey = this.stateApiKey
+    this.city = this.stateCity
   },
   created() {
     // this.$http

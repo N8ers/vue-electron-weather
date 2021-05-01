@@ -55,10 +55,9 @@ export default {
     set: function () {
       set()
       // setUserPreferences()
-    }
-  },
-  mounted() {
-    this.$http
+    },
+    getWeather () {
+       this.$http
       .get(`/weather?q=${this.query}&units=metric&&appid=${this.apiKey}`)
       .then(response => {
         console.log('response ', response)
@@ -79,6 +78,11 @@ export default {
         this.error = true;
         this.city = '';
       });
+    }
+
+  },
+  mounted() {
+  //  this.get()
   }
 }
 </script>

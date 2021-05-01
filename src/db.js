@@ -2,14 +2,20 @@ const Store = require('electron-store');
 const store = new Store();
 
 function get () {
-  console.log('GET')
-  return store.get('unicorn')
+  let city = store.get('city')
+  let apiKey = store.get('apiKey')
+  return { city, apiKey }
 }
 
-function set () {
-  let randomNumber = Math.floor(Math.random() * 100)
-  console.log('SET ', randomNumber)
-  store.set('unicorn', '🦄 ' +randomNumber)
+function set (data) {
+
+  // data = {
+  //   city: 'indianapolis',
+  //   apiKey: ''
+  // }
+
+  store.set('city', data.city)
+  store.set('apiKey', data.apiKey)
 }
 
 module.exports = {
