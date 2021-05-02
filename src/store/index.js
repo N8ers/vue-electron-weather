@@ -14,7 +14,8 @@ export default new Vuex.Store({
   state: {
     apiKey: null,
     city: null,
-    weather: null,
+    currentWeather: null,
+    setForcast: null,
     settingsAlert: {
       type: null,
       message: null
@@ -32,8 +33,13 @@ export default new Vuex.Store({
     setSettingsAlert (state, data) {
       state.settingsAlert = data
     },
-    setWeather (state, data) {
-      state.weather = data
+    setCurrentWeather (state, data) {
+      console.log('setCurrentWeather ', data)
+      state.currentWeather = data
+    },
+    setForcast (state, data) {
+      console.log('setForcast ', data)
+      state.forcast = data
     }
   },
   actions: {
@@ -52,16 +58,27 @@ export default new Vuex.Store({
       commit('setSettingsAlert', { type: 'success', message: 'Data updated' })
     },
     cleanWeatherData ({ commit }, data) {
+      let currentWeather = formatCurrentWeather(data.list[0])
       let cleanData = removeExtraniousData(data)
       let dataByDay = organizeDataByDay(cleanData)
       let formatedData = formatHighsAndLows(dataByDay)
       let formatedIcon = formatIcon(formatedData)
+      let finalFormat = removeDayData(formatedIcon)
 
-      console.log('formatedIcon ', formatedIcon)
-      commit('setWeather', dataByDay)
+      commit('setCurrentWeather', currentWeather)
+      commit('setForcast', finalFormat)
     }
   }
 })
+
+function formatCurrentWeather (data) {
+  let currentWeather = {
+    temp: data.main.temp,
+    humidity: data.main.humidity,
+    icon: data.weather[0].icon
+  }
+  return currentWeather
+}
 
 function removeExtraniousData (data) {
   return data.list.map((item) => {
@@ -112,6 +129,7 @@ function formatHighsAndLows (data) {
       delete day[i].tempMin
     }
   }
+
   return data
 }
 
@@ -137,4 +155,18 @@ function formatIcon (data) {
     data[day]['icon'] = mostFrequentIcon
   }
   return data
+}
+
+function removeDayData (data) {
+  let cleanData = { }
+
+  for (const day in data) {
+    let dayData = {
+      high: data[day].high,
+      low: data[day].low,
+      icon: data[day].icon
+    }
+    cleanData[day] = dayData
+  }
+  return cleanData
 }
