@@ -14,8 +14,8 @@ export default new Vuex.Store({
   state: {
     apiKey: null,
     city: null,
-    currentWeather: null,
-    setForcast: null,
+    currentWeather: {},
+    forcast: {},
     settingsAlert: {
       type: null,
       message: null

@@ -3,8 +3,14 @@
     <h2>Weather</h2>
     <v-btn color="success">getWeather</v-btn>
 
-    <div v-for="(data, index) in weather" :key="data.icon + index">
-      <div>{{data}}</div>
+    <div>
+      <h4>Current Weather:</h4>
+      <p>{{ currentWeather }}</p>
+    </div>
+
+    <div v-for="(data, index) in forcast" :key="data.icon + index">
+      <h5>Day {{index}}:</h5>
+      <p>{{data}}</p>
     </div>
   </div>
 </template>
@@ -35,7 +41,8 @@ export default {
       stateApiKey: state => state.apiKey,
       stateCity: state => state.city,
       weatherAlert: state => state.weatherAlert,
-      weather: state => state.weather
+      currentWeather: state => state.currentWeather,
+      forcast: state => state.forcast
     })
   },
   mounted () {
