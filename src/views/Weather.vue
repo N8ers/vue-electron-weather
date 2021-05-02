@@ -1,27 +1,29 @@
 <template>
   <div>
     <h2>Weather</h2>
-    <v-btn color="success">getWeather</v-btn>
+    <v-btn color="success">Update Weather</v-btn>
 
-    <div>
-      <h4>Current Weather:</h4>
-      <p>{{ currentWeather }}</p>
+    <current-weather />
+
+    <div v-for="(day, index) in forcast" :key="day.high + index">
+      <forcast-card :forcast="day" />
     </div>
 
-    <div v-for="(data, index) in forcast" :key="data.icon + index">
-      <h5>Day {{index}}:</h5>
-      <p>{{data}}</p>
-    </div>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
 
+import CurrentWeather from '../components/CurrentWeather.vue'
+import ForcastCard from '../components/ForcastCard.vue'
+
 export default {
   name: 'Weather',
-  components: { },
-
+  components: {
+    CurrentWeather,
+    ForcastCard
+  },
   data: function () {
     return { }
   },
@@ -41,7 +43,6 @@ export default {
       stateApiKey: state => state.apiKey,
       stateCity: state => state.city,
       weatherAlert: state => state.weatherAlert,
-      currentWeather: state => state.currentWeather,
       forcast: state => state.forcast
     })
   },
