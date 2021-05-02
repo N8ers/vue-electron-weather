@@ -54,9 +54,10 @@ export default new Vuex.Store({
     cleanWeatherData ({ commit }, data) {
       let cleanData = removeExtraniousData(data)
       let dataByDay = organizeDataByDay(cleanData)
-      let formatedData = formatData(dataByDay)
+      let formatedData = formatHighsAndLows(dataByDay)
+      let formatedIcon = formatIcon(formatedData)
 
-      console.log('formatedData ', formatedData)
+      console.log('formatedIcon ', formatedIcon)
       commit('setWeather', dataByDay)
     }
   }
@@ -94,15 +95,11 @@ function organizeDataByDay (cleanData) {
   return dataByDay
 }
 
-function formatData (data) {
-  // console.log('data 1 ', data)
+function formatHighsAndLows (data) {
   for (const iteratedDay in data) {
     let day = data[iteratedDay]
     day['high'] = day[0].tempMax
     day['low'] = day[0].tempMin
-    // day['icon'] = day[0].tempMin
-
-    // let iconFrequencies = { }
 
     for (let i = 0; i < day.length; i ++) {
       if (day[i].tempMax > day.high) {
@@ -115,6 +112,29 @@ function formatData (data) {
       delete day[i].tempMin
     }
   }
+  return data
+}
 
+function formatIcon (data) {
+  for (const day in data) {
+    let iconFrequency = {}
+
+    for (const item of data[day]) {
+      if (!iconFrequency[item.icon]) {
+        iconFrequency[item.icon] = 0
+      }
+  
+      iconFrequency[item.icon] = iconFrequency[item.icon] + 1
+      delete item.icon
+    }
+
+    let mostFrequentIcon = 0
+    for (const item in iconFrequency){
+      if (iconFrequency[item] > mostFrequentIcon) {
+        mostFrequentIcon = item
+      }
+    }
+    data[day]['icon'] = mostFrequentIcon
+  }
   return data
 }
