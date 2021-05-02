@@ -30,11 +30,9 @@ export default new Vuex.Store({
       state.settingsAlert = data
     },
     setCurrentWeather (state, data) {
-      console.log('setCurrentWeather ', data)
       state.currentWeather = data
     },
     setForcast (state, data) {
-      console.log('setForcast ', data)
       state.forcast = data
     }
   },

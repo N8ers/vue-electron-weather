@@ -95,7 +95,8 @@ export function formatCurrentWeather (data) {
   let currentWeather = {
     temp: data.main.temp,
     humidity: data.main.humidity,
-    icon: data.weather[0].icon
+    icon: data.weather[0].icon,
+    description: data.weather[0].description
   }
   return currentWeather
 }
