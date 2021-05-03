@@ -1,17 +1,22 @@
 <template>
   <div> 
-    <h2>Settings</h2>
-
     <div v-if="settingsAlert && settingsAlert.type && settingsAlert.message">
       <v-alert text :type="settingsAlert.type">{{ settingsAlert.message }}</v-alert>
     </div>
 
-    <v-form @submit.prevent="updateUserData">
-      <v-text-field v-model="apiKey" label="API key" required></v-text-field>
-      <v-text-field v-model="city" label="City" required></v-text-field>
-      <v-btn color="success" class="mr-4" type="submit">Update</v-btn>
-    </v-form>
-
+    <v-container class="grey lighten-5">
+      <v-row>
+        <v-col cols="12" md="8">
+          <v-card class="pa-2" outlined tile>
+            <v-form @submit.prevent="updateUserData">
+              <v-text-field v-model="apiKey" label="API key" required></v-text-field>
+              <v-text-field v-model="city" label="City" required></v-text-field>
+              <v-btn color="success" class="mr-4" type="submit">Update</v-btn>
+            </v-form>
+          </v-card>
+        </v-col>
+      </v-row>
+  </v-container>
   </div>
 </template>
 
