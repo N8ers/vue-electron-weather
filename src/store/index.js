@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import cloneDeep from 'lodash.clonedeep'
 
 import { get, set } from '../db.js';
 import { formatCurrentWeather, formatForcast } from '../helpers/weatherData.js';
@@ -12,6 +13,7 @@ export default new Vuex.Store({
     city: null,
     currentWeather: {},
     forcast: {},
+    fiveDayForcast: {},
     settingsAlert: {
       type: null,
       message: null
@@ -34,6 +36,11 @@ export default new Vuex.Store({
     },
     setForcast (state, data) {
       state.forcast = data
+    },
+    setFiveDayForcast (state, data) {
+      let clonedData = cloneDeep(data)
+      delete clonedData.day1
+      state.fiveDayForcast = clonedData
     }
   },
   actions: {
@@ -56,6 +63,7 @@ export default new Vuex.Store({
       let forcast = formatForcast(data)
 
       commit('setCurrentWeather', currentWeather)
+      commit('setFiveDayForcast', forcast)
       commit('setForcast', forcast)
     }
   }
