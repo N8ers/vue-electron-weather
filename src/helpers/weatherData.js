@@ -1,4 +1,4 @@
-import { isSameDay } from 'date-fns'
+import { isSameDay, format } from 'date-fns'
 
 function removeExtraniousData (data) {
   return data.list.map((item) => {
@@ -82,6 +82,7 @@ function removeDayData (data) {
 
   for (const day in data) {
     let dayData = {
+      date: format(data[day][0].time, 'EEEE, MMM do'),
       high: data[day].high,
       low: data[day].low,
       icon: data[day].icon

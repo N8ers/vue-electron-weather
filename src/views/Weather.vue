@@ -1,14 +1,23 @@
 <template>
   <div>
-    <h2>Weather</h2>
-    <v-btn color="success">Update Weather</v-btn>
+    <v-container class="grey lighten-5">
+      <v-row>
+        <v-col cols="6" md="4">
+          <current-weather />
+        </v-col>
+        <v-col cols="6" md="4">
+          <v-btn color="success">Update Weather</v-btn>
+        </v-col>
+      </v-row>
 
-    <current-weather />
+      <hr >
 
-    <div v-for="(day, index) in forcast" :key="day.high + index">
-      <forcast-card :forcast="day" />
-    </div>
-
+      <v-row>     
+        <v-col v-for="(day, index) in fiveDayForcast" :key="day.high + index" cols="2" md="4">
+          <forcast-card :forcast="day" />
+        </v-col>
+      </v-row>
+    </v-container>
   </div>
 </template>
 
@@ -43,7 +52,8 @@ export default {
       stateApiKey: state => state.apiKey,
       stateCity: state => state.city,
       weatherAlert: state => state.weatherAlert,
-      forcast: state => state.forcast
+      forcast: state => state.forcast,
+      fiveDayForcast: state => state.fiveDayForcast
     })
   },
   mounted () {

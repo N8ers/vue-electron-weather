@@ -2,9 +2,11 @@
   <div>
     <h4>{{ date }}</h4>
     <div>{{ currentWeather.temp }}&deg;F</div>
-    <div>{{ currentWeather.temp }}%</div>
+    <div>{{ currentWeather.humidity }}%</div>
     <img :src="icon" alt="Weather icon">
     <div>{{ currentWeather.description }}</div>
+    <div>High: {{ todaysHigh }}&deg;F</div>
+    <div>Low: {{ todaysLow }}&deg;F</div>
   </div>
 </template>
 
@@ -27,8 +29,15 @@ export default {
     icon: function () {
       return `http://openweathermap.org/img/w/${this.currentWeather.icon}.png`;
     },
+    todaysHigh: function () {
+      return this.forcast?.day1?.high
+    },
+    todaysLow: function () {
+      return this.forcast?.day1?.low
+    },
     ...mapState({
       currentWeather: state => state.currentWeather,
+      forcast: state => state.forcast
     })
   },
   mounted () {  },

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h4>date: {{ date }}</h4>
+    <h4>{{ forcast.date }}</h4>
     <div>{{ forcast.high }}&deg;F</div>
     <div>{{ forcast.low }}&deg;F</div>
     <img :src="icon" alt="Weather icon">
@@ -27,7 +27,7 @@ export default {
   methods: {  },
   computed: {
     date: function () {
-      return format(Date.now(), 'EEEE, MMM do')
+      return format(Date.now(), 'EEEE')
     },
     icon: function () {
       return `http://openweathermap.org/img/w/${this.forcast.icon}.png`;
