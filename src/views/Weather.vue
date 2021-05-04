@@ -43,17 +43,23 @@ export default {
   },
   methods: {
     getWeather: function () {
-      this.$http.get(`forecast?q=${this.stateCity}&units=imperial&appid=${this.stateApiKey}`)
-        .then(response => {
-          this.$store.dispatch('cleanWeatherData', response.data)
-        })
-        .catch((error) => {
-          let payload = {
-            type: 'error',
-            message: error.message
-          }
-          this.$store.commit('setWeatherAlert', payload)
-        });
+      // with out network: uses dummyPayload.json
+      let data = require('../../dummyPayload.json')
+      this.$store.dispatch('cleanWeatherData', data)
+
+
+      // with network
+      // this.$http.get(`forecast?q=${this.stateCity}&units=imperial&appid=${this.stateApiKey}`)
+      //   .then(response => {
+      //     this.$store.dispatch('cleanWeatherData', response.data)
+      //   })
+      //   .catch((error) => {
+      //     let payload = {
+      //       type: 'error',
+      //       message: error.message
+      //     }
+      //     this.$store.commit('setWeatherAlert', payload)
+      //   });
     }
   },
   computed: {
