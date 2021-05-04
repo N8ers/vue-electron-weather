@@ -1,10 +1,9 @@
 <template>
-  <div class="pa-4 secondary text-no-wrap rounded">
+  <div class="text-no-wrap border text-center">
     <h4>{{ forcast.day }}</h4>
     <h4 class="grey--text">{{ forcast.date }}</h4>
-    <div>{{ forcast.high }}&deg;F</div>
-    <div>{{ forcast.low }}&deg;F</div>
-    <img :src="icon" alt="Weather icon">
+    <img class="text-center" :src="icon" alt="Weather icon">
+    <div>{{ Math.round(forcast.high) }}&deg;F | {{ Math.round(forcast.low) }}&deg;F</div>
   </div>
 </template>
 
@@ -43,3 +42,10 @@ export default {
   }
 }
 </script>
+
+<style>
+.border {
+  border: 1px solid black;
+  border-radius: 5px;
+}
+</style>

@@ -1,13 +1,19 @@
 <template>
   <div>
-    <h4>{{ city }}</h4>
-    <h4>{{ date }}</h4>
-    <div>{{ currentWeather.temp }}&deg;F</div>
-    <div>{{ currentWeather.humidity }}%</div>
-    <img :src="icon" alt="Weather icon">
-    <div>{{ currentWeather.description }}</div>
-    <div>High: {{ todaysHigh }}&deg;F</div>
-    <div>Low: {{ todaysLow }}&deg;F</div>
+    <v-container>
+      <v-row>
+        <v-col>
+          <h3>{{ Math.round(currentWeather.temp) }}&deg;F</h3>
+          <img :src="icon" alt="Weather icon">
+          <div>{{ currentWeather.description }}</div>
+        </v-col>
+        <v-col>
+          <div>{{ currentWeather.humidity }}% humidity</div>
+          <div>High: {{ todaysHigh }}&deg;F</div>
+          <div>Low: {{ todaysLow }}&deg;F</div>
+        </v-col>
+      </v-row>
+    </v-container>
   </div>
 </template>
 

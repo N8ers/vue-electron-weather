@@ -15,8 +15,8 @@ protocol.registerSchemesAsPrivileged([
 
 async function createWindow() {
   const win = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 600,
+    height: 400,
     webPreferences: {
       nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION
     }

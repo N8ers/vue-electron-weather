@@ -12,10 +12,10 @@
         </v-col>
         <v-col cols="6" md="4">
           <v-btn color="success">Update Weather</v-btn>
+          <h4>{{ city }}</h4>
+          <h4>{{ date }}</h4>
         </v-col>
       </v-row>
-
-      <hr >
 
       <v-row>     
         <v-col cols="12" sm="3" v-for="(day, index) in fourDayForcast" :key="day.high + index">
@@ -28,6 +28,7 @@
 
 <script>
 import { mapState } from 'vuex'
+import { format } from 'date-fns'
 
 import CurrentWeather from '../components/CurrentWeather.vue'
 import ForcastCard from '../components/ForcastCard.vue'
@@ -63,6 +64,9 @@ export default {
     }
   },
   computed: {
+    date: function () {
+      return format(Date.now(), 'EEEE, MMM do')
+    },
     ...mapState({
       stateApiKey: state => state.apiKey,
       stateCity: state => state.city,
@@ -70,9 +74,10 @@ export default {
       forcast: state => state.forcast,
       fiveDayForcast: state => state.fiveDayForcast,
       fourDayForcast: state => state.fourDayForcast,
+      city: state => state.city,
     })
   },
-  mounted () {
+  created () {
     if (this.stateApiKey && this.stateCity) {
       this.getWeather();
     }
