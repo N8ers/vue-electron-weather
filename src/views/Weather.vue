@@ -1,5 +1,10 @@
 <template>
   <div>
+
+    <div v-if="weatherAlert && weatherAlert.type && weatherAlert.message">
+      <v-alert text :type="weatherAlert.type">{{ weatherAlert.message }}</v-alert>
+    </div>
+
     <v-container class="grey lighten-5">
       <v-row>
         <v-col cols="6" md="4">
@@ -13,7 +18,7 @@
       <hr >
 
       <v-row>     
-        <v-col v-for="(day, index) in fiveDayForcast" :key="day.high + index" cols="2" md="4">
+        <v-col cols="12" sm="3" v-for="(day, index) in fourDayForcast" :key="day.high + index">
           <forcast-card :forcast="day" />
         </v-col>
       </v-row>
@@ -42,8 +47,12 @@ export default {
         .then(response => {
           this.$store.dispatch('cleanWeatherData', response.data)
         })
-        .catch((err) => {
-          console.log('ERROR ', err)
+        .catch((error) => {
+          let payload = {
+            type: 'error',
+            message: error.message
+          }
+          this.$store.commit('setWeatherAlert', payload)
         });
     }
   },
@@ -53,7 +62,8 @@ export default {
       stateCity: state => state.city,
       weatherAlert: state => state.weatherAlert,
       forcast: state => state.forcast,
-      fiveDayForcast: state => state.fiveDayForcast
+      fiveDayForcast: state => state.fiveDayForcast,
+      fourDayForcast: state => state.fourDayForcast,
     })
   },
   mounted () {
