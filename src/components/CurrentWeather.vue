@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h4>{{ city }}</h4>
     <h4>{{ date }}</h4>
     <div>{{ currentWeather.temp }}&deg;F</div>
     <div>{{ currentWeather.humidity }}%</div>
@@ -37,7 +38,8 @@ export default {
     },
     ...mapState({
       currentWeather: state => state.currentWeather,
-      forcast: state => state.forcast
+      forcast: state => state.forcast,
+      city: state => state.city,
     })
   },
   mounted () {  },

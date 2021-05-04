@@ -1,6 +1,7 @@
 <template>
-  <div>
-    <h4>{{ forcast.date }}</h4>
+  <div class="pa-4 secondary text-no-wrap rounded">
+    <h4>{{ forcast.day }}</h4>
+    <h4 class="grey--text">{{ forcast.date }}</h4>
     <div>{{ forcast.high }}&deg;F</div>
     <div>{{ forcast.low }}&deg;F</div>
     <img :src="icon" alt="Weather icon">
@@ -37,6 +38,8 @@ export default {
     })
   },
   mounted () {  },
-  created() {  }
+  created() { 
+    this.$store.commit('clearAllAlerts')
+  }
 }
 </script>

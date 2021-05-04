@@ -82,7 +82,8 @@ function removeDayData (data) {
 
   for (const day in data) {
     let dayData = {
-      date: format(data[day][0].time, 'EEEE, MMM do'),
+      day: format(data[day][0].time, 'EEEE'),
+      date: format(data[day][0].time, 'MMM d'),
       high: data[day].high,
       low: data[day].low,
       icon: data[day].icon
