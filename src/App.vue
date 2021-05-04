@@ -8,11 +8,11 @@
       <v-spacer></v-spacer>
 
       <v-btn v-if="$route.name !== 'Settings'" to="/settings">
-        <span class="mr-2">Settings</span>
+        <span>Settings</span>
       </v-btn>
 
       <v-btn v-else to="/">
-        <span class="mr-2">Weather</span>
+        <span>Weather</span>
       </v-btn>
     </v-app-bar>
 
