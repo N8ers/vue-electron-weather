@@ -9,10 +9,14 @@
         <v-col cols="12" md="8">
           <v-card class="pa-2" outlined tile>
             <v-form @submit.prevent="updateUserData">
-              <v-text-field v-model="apiKey" label="API key" required></v-text-field>
-              <v-text-field v-model="city" label="City" required></v-text-field>
-              <v-btn color="success" class="mr-4" type="submit">Update</v-btn>
+              <v-text-field v-model="apiKey" :rules="apiKeyRules" label="API key" required></v-text-field>
+              <v-text-field v-model="city" :rules="cityRules" label="City" required></v-text-field>
+              <v-btn :disabled="!apiKey.length || !city.length" color="success" class="mr-4 mt-4" type="submit">Update</v-btn>
             </v-form>
+
+            <v-card-text>For this application to work, you need to obtain an a free 'API Key' from 
+              <a href="openweathermap.org" target="_blank">openweathermap.org</a>.
+            </v-card-text>
           </v-card>
         </v-col>
       </v-row>
@@ -29,7 +33,13 @@ export default {
   data: function () {
     return {
       apiKey: '',
-      city: ''
+      city: '',
+      apiKeyRules: [
+        value => !!value || 'API Key is required',
+      ],
+      cityRules: [
+        value => !!value || 'City is required',
+      ]
     }
   },
   methods: {
