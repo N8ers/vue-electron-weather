@@ -31,6 +31,10 @@ export default new Vuex.Store({
     setSettingsAlert (state, data) {
       state.settingsAlert = data
     },
+    setWeatherAlert (state, data) {
+      state.weatherAlert.type = data.type
+      state.weatherAlert.message = data.message + ' - Error loading weather, check settings.'
+    },
     setCurrentWeather (state, data) {
       state.currentWeather = data
     },
@@ -41,6 +45,18 @@ export default new Vuex.Store({
       let clonedData = cloneDeep(data)
       delete clonedData.day1
       state.fiveDayForcast = clonedData
+    },
+    setFourDayForcast (state, data) {
+      let clonedData = cloneDeep(data)
+      delete clonedData.day1
+      delete clonedData.day6
+      state.fourDayForcast = clonedData
+    },
+    clearAllAlerts(state) {
+      state.settingsAlert.type = null
+      state.settingsAlert.message = null
+      state.weatherAlert.type = null
+      state.weatherAlert.message = null
     }
   },
   actions: {
@@ -64,6 +80,7 @@ export default new Vuex.Store({
 
       commit('setCurrentWeather', currentWeather)
       commit('setFiveDayForcast', forcast)
+      commit('setFourDayForcast', forcast)
       commit('setForcast', forcast)
     }
   }
