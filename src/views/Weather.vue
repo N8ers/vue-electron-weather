@@ -7,10 +7,10 @@
 
     <v-container class="grey lighten-5">
       <v-row>
-        <v-col cols="6" md="4">
+        <v-col cols="8" md="4">
           <current-weather />
         </v-col>
-        <v-col cols="6" md="4">
+        <v-col cols="4" md="4">
           <v-btn color="success">Update Weather</v-btn>
           <h4>{{ city }}</h4>
           <h4>{{ date }}</h4>

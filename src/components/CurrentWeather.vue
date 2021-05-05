@@ -2,15 +2,17 @@
   <div>
     <v-container>
       <v-row>
-        <v-col>
-          <h3>{{ Math.round(currentWeather.temp) }}&deg;F</h3>
+        <v-col class="text-center">
+          <div class="text-h4">{{ Math.round(currentWeather.temp) }}&deg;F</div>
           <img :src="icon" alt="Weather icon">
-          <div>{{ currentWeather.description }}</div>
+          <div class="text-subtitle-2">{{ currentWeather.description }}</div>
         </v-col>
-        <v-col>
-          <div>{{ currentWeather.humidity }}% humidity</div>
-          <div>High: {{ todaysHigh }}&deg;F</div>
+        <v-col class="text-subtitle-2">
+          <h4>{{ city }}</h4>
+          <h4>{{ date }}</h4>
+          <div class="mt-2">High: {{ todaysHigh }}&deg;F</div>
           <div>Low: {{ todaysLow }}&deg;F</div>
+          <div>Humidity: {{ currentWeather.humidity }}%</div>
         </v-col>
       </v-row>
     </v-container>
@@ -37,10 +39,10 @@ export default {
       return `http://openweathermap.org/img/w/${this.currentWeather.icon}.png`;
     },
     todaysHigh: function () {
-      return this.forcast?.day1?.high
+      return this.forcast.day1.high
     },
     todaysLow: function () {
-      return this.forcast?.day1?.low
+      return this.forcast.day1.low
     },
     ...mapState({
       currentWeather: state => state.currentWeather,
