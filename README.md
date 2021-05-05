@@ -1,25 +1,10 @@
 # vue-electron-weather
+This is a weather app built with [electron.js](https://www.electronjs.org/) and [vue.js](https://vuejs.org/). It requires an [OpenWeather](openweathermap.org) API Key.
 
 ## Project setup
+With node v15 or greater, run:
 ```
 npm install
+npm run go
 ```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
-# vue-electron-weather
+`npm run go` will launch the app in development mode. 
