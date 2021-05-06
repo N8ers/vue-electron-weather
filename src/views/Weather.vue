@@ -12,8 +12,6 @@
         </v-col>
         <v-col cols="4" md="4">
           <v-btn color="success">Update Weather</v-btn>
-          <h4>{{ city }}</h4>
-          <h4>{{ date }}</h4>
         </v-col>
       </v-row>
 
