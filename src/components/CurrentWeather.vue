@@ -39,10 +39,16 @@ export default {
       return `http://openweathermap.org/img/w/${this.currentWeather.icon}.png`;
     },
     todaysHigh: function () {
-      return this.forcast.day1.high
+      if (this.forcast && this.forcast.day1 && this.forcast.day1.high) {
+        return this.forcast.day1.high
+      }
+      return 'this.forcast.day1.high'
     },
     todaysLow: function () {
-      return this.forcast.day1.low
+      if (this.forcast && this.forcast.day1 && this.forcast.day1.low) {
+        return this.forcast.day1.low
+      }
+      return ''
     },
     ...mapState({
       currentWeather: state => state.currentWeather,
