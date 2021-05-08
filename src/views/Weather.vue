@@ -16,8 +16,8 @@
         </v-col>
       </v-row>
 
-      <v-row>     
-        <v-col cols="12" sm="3" v-for="(day, index) in fourDayForcast" :key="day.high + index">
+      <v-row v-if="fourDayForcast.day2 && fourDayForcast.day2.high">     
+        <v-col cols="12" sm="3" v-for="(day, index) in fourDayForcast" :key="day.date + index">
           <forcast-card :forcast="day" />
         </v-col>
       </v-row>
@@ -49,7 +49,7 @@ export default {
 
 
       // with network
-      this.$http.get(`forecast?q=${this.stateCity}&units=imperial&appid=${this.stateApiKey}-`)
+      this.$http.get(`forecast?q=${this.stateCity}&units=imperial&appid=${this.stateApiKey}`)
         .then(response => {
           this.$store.dispatch('cleanWeatherData', response.data)
         })
