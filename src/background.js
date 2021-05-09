@@ -16,7 +16,7 @@ protocol.registerSchemesAsPrivileged([
 async function createWindow() {
   const win = new BrowserWindow({
     width: 600,
-    height: 400,
+    height: 410,
     webPreferences: {
       nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION
     }
@@ -24,7 +24,7 @@ async function createWindow() {
 
   if (process.env.WEBPACK_DEV_SERVER_URL) {
     await win.loadURL(process.env.WEBPACK_DEV_SERVER_URL)
-    if (!process.env.IS_TEST) win.webContents.openDevTools()
+    // if (!process.env.IS_TEST) win.webContents.openDevTools()
   } else {
     createProtocol('app')
     win.loadURL('app://./index.html')
@@ -42,13 +42,13 @@ app.on('activate', () => {
 })
 
 app.on('ready', async () => {
-  if (isDevelopment && !process.env.IS_TEST) {
-    try {
-      await installExtension(VUEJS_DEVTOOLS)
-    } catch (e) {
-      console.error('Vue Devtools failed to install:', e.toString())
-    }
-  }
+  // if (isDevelopment && !process.env.IS_TEST) {
+  //   try {
+  //     await installExtension(VUEJS_DEVTOOLS)
+  //   } catch (e) {
+  //     console.error('Vue Devtools failed to install:', e.toString())
+  //   }
+  // }
   createWindow()
 })
 
