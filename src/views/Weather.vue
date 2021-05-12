@@ -16,7 +16,7 @@
         </v-col>
       </v-row>
 
-      <v-row v-if="fourDayForcast.day2 && fourDayForcast.day2.high">     
+      <v-row v-if="fourDayForcast && fourDayForcast.day2 && fourDayForcast.day2.high">     
         <v-col cols="12" sm="3" v-for="(day, index) in fourDayForcast" :key="day.date + index">
           <forcast-card :forcast="day" />
         </v-col>
@@ -46,10 +46,14 @@ export default {
       // with out network: uses dummyPayload.json
       // let data = require('../../dummyPayload.json')
       // this.$store.dispatch('cleanWeatherData', data)
-
-
-      // with network
-      this.$http.get(`forecast?q=${this.stateCity}&units=imperial&appid=${this.stateApiKey}`)
+      if (!this.stateCity || !this.stateApiKey) {
+        let payload = {
+            type: 'error',
+            message: 'looks like you\'re missing an API key or Locaiton. Go to Settings.'
+          }
+          this.$store.commit('setWeatherAlert', payload)
+      } else {
+              this.$http.get(`forecast?q=${this.stateCity}&units=imperial&appid=${this.stateApiKey}`)
         .then(response => {
           this.$store.dispatch('cleanWeatherData', response.data)
         })
@@ -60,6 +64,7 @@ export default {
           }
           this.$store.commit('setWeatherAlert', payload)
         });
+      }
     }
   },
   computed: {

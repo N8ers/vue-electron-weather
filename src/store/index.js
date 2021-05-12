@@ -14,6 +14,7 @@ export default new Vuex.Store({
     currentWeather: {},
     forcast: {},
     fiveDayForcast: {},
+    fourDayForcast: {},
     settingsAlert: {
       type: null,
       message: null

@@ -30,7 +30,10 @@ export default {
       return format(Date.now(), 'EEEE')
     },
     icon: function () {
-      return `http://openweathermap.org/img/w/${this.forcast.icon}.png`;
+      if (this.forcast && this.forcast.icon) {
+        return `http://openweathermap.org/img/w/${this.forcast.icon}.png`
+      }
+      return ''
     },
     ...mapState({
       // forcast: state => state.forcast

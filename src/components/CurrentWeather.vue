@@ -36,7 +36,10 @@ export default {
       return format(Date.now(), 'EEEE, MMM do')
     },
     icon: function () {
-      return `http://openweathermap.org/img/w/${this.currentWeather.icon}.png`;
+      if (this.currentWeather && this.currentWeather.icon) {
+        return `http://openweathermap.org/img/w/${this.currentWeather.icon}.png`
+      }
+      return ''
     },
     todaysHigh: function () {
       if (this.forcast && this.forcast.day1 && this.forcast.day1.high) {

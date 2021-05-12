@@ -11,7 +11,7 @@
             <v-form @submit.prevent="updateUserData">
               <v-text-field v-model="apiKey" :rules="apiKeyRules" label="API key" required></v-text-field>
               <v-text-field v-model="city" :rules="cityRules" label="City" required></v-text-field>
-              <v-btn :disabled="!apiKey.length || !city.length" color="success" class="mr-4 mt-4" type="submit">Update</v-btn>
+              <v-btn :disabled="!apiKey || !city" color="success" class="mr-4 mt-4" type="submit">Update</v-btn>
             </v-form>
 
             <v-card-text>For this application to work, you need to obtain an a free 'API Key' from 
