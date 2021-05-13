@@ -66,7 +66,8 @@ export default new Vuex.Store({
       if (data.apiKey && data.city) {
         commit('setData', data)
       } else {
-        commit('setSettingsAlert', { type: 'error', message: 'Try again' })
+        this.$router.push('Settings')
+        // commit('setSettingsAlert', { type: 'error', message: 'Try again' })
       }
     },
     setData ({ dispatch, commit }, data) {
