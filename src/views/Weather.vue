@@ -5,10 +5,13 @@
       <v-alert text :type="weatherAlert.type">{{ weatherAlert.message }}</v-alert>
     </div>
     <div v-if="!stateCity || !stateApiKey">
-      <v-alert text :type="error">There was a problem getting your city or API key, check the settings page</v-alert>
+      <v-alert text type="error">
+        <div>There was a problem getting your city or API key.</div>
+        <div>Check the settings page.</div>
+      </v-alert>
     </div>
 
-    <v-container class="grey lighten-5">
+    <v-container v-if="stateCity && stateApiKey" class="grey lighten-5">
       <v-row>
         <v-col cols="6" md="4">
           <current-weather />
